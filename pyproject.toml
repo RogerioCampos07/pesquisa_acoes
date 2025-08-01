@@ -6,9 +6,10 @@ authors = [
     {name = "Rogerio Campos",email = "rogerio.campos07@gmail.com"}
 ]
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">3.13,<4.0"
 dependencies = [
     "selenium (>=4.34.2,<5.0.0)",
+    "loguru (>=0.7.3,<0.8.0)",
 ]
 
 [tool.poetry]
