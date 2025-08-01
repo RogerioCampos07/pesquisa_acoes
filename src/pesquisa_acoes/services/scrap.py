@@ -52,13 +52,17 @@ class TickerScraper:
             search_box.send_keys(Keys.ENTER)
             print('código da ação digitado')
             get_info_ticker = self.driver.find_element(By.XPATH,"//h1[@class='yf-4vbjci']")
-            get_price_ticker = self.driver.find_element(By.XPATH,'//*[@id="nimbus-app"]/section/section/section/article/section[2]/div/ul/li[3]/span[2]')
-            stock_name = get_info_ticker.text
+            get_price_ticker = self.driver.find_element(By.XPATH,"//li[span[@title='Bid']]/span[@class='value yf-1b7pzha']")
+            stock_name = get_info_ticker.text.split('(')[0]
+            cod_stock_name = get_info_ticker.text.split('(')[1][:-1].split('.')[0]
             price = get_price_ticker.text.split()[0]
-            informations = [stock_name,price]
-            print(get_info_ticker.text)
-            print(get_price_ticker.text.split()[0])
+            date = datetime.now().strftime('%d-%m-%Y %H:%M:%S')
+            informations = [cod_stock_name,stock_name,price,date]
+            print(cod_stock_name)
+            print(stock_name)
+            print(price)
             print('Informações obtidas')
+            print(informations)
             return informations
 
         finally:
@@ -68,17 +72,11 @@ class TickerScraper:
             
     def search_ticker_output_csv(self, ticker):
         dados = self.search_ticker(ticker)
-        stock_name = dados[0]
-        price = dados[1]
         
-        
-        date = datetime.now().strftime('%d-%m-%Y')
-        time = datetime.now().strftime('%H:%M:%S')
-        informations = [stock_name,price,date,time]
         try:
             with open('tickers.csv','a',encoding='utf8',newline='') as f:
                 csv_writer = writer(f)
-                csv_writer.writerow(informations)
+                csv_writer.writerow(dados)
         except:
             pass
 
