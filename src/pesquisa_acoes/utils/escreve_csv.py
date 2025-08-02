@@ -1,3 +1,4 @@
+from pesquisa_acoes.services.scrap import TickerScraper
 import csv
 
 from loguru import logger
@@ -16,3 +17,12 @@ def search_ticker_output_csv(dados_dicionario):
         logger.error(e)
 
     return dados
+
+def search_tickers_output_csv(tickers_list):
+    for ticker in tickers_list:
+        scraper = TickerScraper()
+        ticker = scraper.search_ticker(ticker)
+        search_ticker_output_csv(ticker)
+
+
+
