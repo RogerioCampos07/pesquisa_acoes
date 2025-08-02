@@ -1,7 +1,8 @@
-from pesquisa_acoes.services.scrap import TickerScraper
 import csv
 
 from loguru import logger
+
+from pesquisa_acoes.services.scrap import TickerScraper
 
 
 def search_ticker_output_csv(dados_dicionario):
@@ -18,6 +19,7 @@ def search_ticker_output_csv(dados_dicionario):
 
     return dados
 
+
 def search_tickers_output_csv(tickers_list):
     for ticker in tickers_list:
         scraper = TickerScraper()
@@ -28,8 +30,3 @@ def search_tickers_output_csv(tickers_list):
             continue
         search_ticker_output_csv(ticker)
     logger.info("Registros salvos com sucesso")
-
-
-
-
-
