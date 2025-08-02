@@ -21,8 +21,15 @@ def search_ticker_output_csv(dados_dicionario):
 def search_tickers_output_csv(tickers_list):
     for ticker in tickers_list:
         scraper = TickerScraper()
-        ticker = scraper.search_ticker(ticker)
+        try:
+            ticker = scraper.search_ticker(ticker)
+        except Exception as e:
+            logger.error(e)
+            continue
         search_ticker_output_csv(ticker)
+    logger.info("Registros salvos com sucesso")
+
+
 
 
 
